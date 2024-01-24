@@ -3,8 +3,8 @@ const apiUrl1 = `http://localhost:3000`;
 const navmenu = document.getElementById("navmenu");
 const isPremium = localStorage.getItem("isPremium");
 const premiumbtn = document.getElementById("premiumbtn");
- const mainHeading = document.getElementById("mainHeading");
-// const token1 = localStorage.getItem("token");
+const mainHeading = document.getElementById("mainHeading");
+
 
 premiumbtn.addEventListener("click", async (e) => {
     
@@ -96,7 +96,7 @@ function leaderboardreport(duration, btn) {
       let count = 1;
       res.forEach((res) => {
         let li = document.createElement("li");
-        li.innerHTML = `${count}: ${res.name} - ${res.total_cost}`;
+        li.innerHTML = `${count}: ${res.name} - ${res.totalCost}`;
         count++;
         leaderboardData.appendChild(li);
       });

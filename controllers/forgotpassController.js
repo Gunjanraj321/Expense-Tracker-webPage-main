@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-const ForgotPassRequest = require("../models/forgotpassModel");
+const ForgotPassRequest = require("../models/forgotPassModel");
 const User = require("../models/userModel");
 const { v4: uuidv4 } = require("uuid");
 const bcrypt = require("bcrypt");
@@ -10,7 +10,7 @@ client.authentications["api-key"].apiKey = process.env.SIB_API_KEY;
 const tranEmailApi = new Sib.TransactionalEmailsApi();
 const mongoose = require("mongoose");
 
-exports.requestresetpassword = async (request, response, next) => {
+exports.requestResetPassword = async (request, response, next) => {
   try {
     const { email } = request.body;
     const user = await User.findOne({ email });
@@ -25,9 +25,9 @@ exports.requestresetpassword = async (request, response, next) => {
         },
       ];
       const forgotPassRequest = new ForgotPassRequest({
-        userId: user.userId,
+        userId: user._id
       });
-
+      // console.log("userid-----",user._id)
       const savedRequest = await forgotPassRequest.save();
 
       const mailresponse = await tranEmailApi.sendTransacEmail({
@@ -59,7 +59,7 @@ exports.requestresetpassword = async (request, response, next) => {
                     </body>
                     </html>`,
         params: {
-          role: id,
+          role: savedRequest._id,
         },
       });
       response.status(200).json({ message: "Password reset email sent" });
@@ -72,7 +72,7 @@ exports.requestresetpassword = async (request, response, next) => {
   }
 };
 
-exports.resetpasswordform = async (request, response, next) => {
+exports.resetPasswordForm = async (request, response, next) => {
   try {
     const { forgotId } = request.params;
     console.log(forgotId);
@@ -91,7 +91,7 @@ exports.resetpasswordform = async (request, response, next) => {
   }
 };
 
-exports.resetpassword = async (request, response, next) => {
+exports.resetPassword = async (request, response, next) => {
   try {
     const { resetid, newpassword } = request.body;
     const forgotPassRequest = await ForgotPassRequest.findById(resetid);

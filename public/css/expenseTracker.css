@@ -127,8 +127,8 @@ input {
   border-radius: 8px;
   padding: 20px;
   float: left;
-  max-width: 30%;
-  margin-left: 25px;
+  max-width: 35%;
+  margin-left: 100px;
   margin-top:20px;
   padding: 5px;
 }
@@ -140,7 +140,7 @@ input {
   width: 40%;
   float: right;
   margin-top:20px;
-  margin-right: 25px;
+  margin-right: 100px;
   margin-bottom: 10px;
   display: flex;
   flex-direction: column;

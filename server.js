@@ -9,11 +9,12 @@ const fs = require("fs");
 const mongoose = require("mongoose");
 const url = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@cluster0.vm3uhba.mongodb.net/`;
 
-// const helmet = require("helmet");
+
 const morgan = require("morgan");
 
 //importing routes
 const userRoute = require("./routes/user");
+const forgotPassRoute = require("./routes/forgotPassRoute");
 const premiumRoute = require("./routes/premiumRoute");
 const welcome = require("./routes/welcome");
 
@@ -24,7 +25,8 @@ const accessLogStream = fs.createWriteStream(
   path.join(__dirname, "access.log"),
   { flags: "a" }
 );
-// calling helmet, cors, json, making absolute path for static files
+
+// calling cors, json, making absolute path for static files
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended : false}));
@@ -35,6 +37,7 @@ app.use(morgan("combined", { stream: accessLogStream }));
 
 //defining the route 
 app.use('/user', userRoute);
+app.use('/user',forgotPassRoute)
 app.use("/premium", premiumRoute);
 app.use(welcome);
 

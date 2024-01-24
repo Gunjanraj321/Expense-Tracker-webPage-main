@@ -15,11 +15,11 @@ const user = new Schema({
     type: String,
     required: true,
   },
-  ispremiumuser: {
+  isPremiumUser: {
     type: Boolean,
     default: false,
   },
-  total_cost: {
+  totalCost: {
     type: Number,
     default: 0,
   },

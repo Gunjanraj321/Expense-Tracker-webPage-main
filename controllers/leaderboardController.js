@@ -5,8 +5,8 @@ const mongoose = require("mongoose");
 
 const getUserLeaderBoard = async (req, res) => {
     try{
-    const users = await User.find({}, ["id", "name", "total_cost"]).sort({
-      total_cost: -1,
+    const users = await User.find({}, ["id", "name", "totalCost"]).sort({
+      totalCost: -1,
     });
     res.json(users);
   } catch (err) {
@@ -29,7 +29,7 @@ const daily = async (req, res) => {
             $gte: startDate,
             $lte: endDate,
           },
-        }).sort({ total_cost: -1 });
+        }).sort({ totalCost: -1 });
 
         res.json(expenses);
     }catch(err) {
@@ -51,7 +51,7 @@ const monthly = async (req, res) => {
         $gte: startDate,
         $lte: endDate,
       },
-    }).sort({ total_cost: -1 });
+    }).sort({ totalCost: -1 });
 
     res.json(expenses);
   } catch (err) {
@@ -73,7 +73,7 @@ const yearly = async (req, res) => {
             $gte: startDate,
             $lte: endDate,
           },
-        }).sort({ total_cost: -1 });
+        }).sort({ totalCost: -1 });
 
     res.json(expenses);
     } catch(err) {

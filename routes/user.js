@@ -2,8 +2,8 @@ const express = require("express");
 
 
 const welcomeController = require("../controllers/welcomeController");
-const s_lController = require("../controllers/signup&loginController");
-const passController = require("../controllers/forgotpassController");
+const regController = require("../controllers/signup&loginController");
+// const passController = require("../controllers/forgotpassController");
 const {
   createExpense,
   getAllPaginatedExpenses,
@@ -20,14 +20,14 @@ const verify = require("../middleware/verifyToken");
 const router = express.Router();
 
 //route definition for signin and signup
-router.post('/signup',s_lController.processSignUp);
-router.post('/signin',s_lController.processLogin);
+router.post('/signup',regController.processSignUp);
+router.post('/signin',regController.processLogin);
 
 
-//route definition for password
-router.post('/forgotpassword',passController.requestresetpassword);
-router.get('/reset/:forgotId', passController.resetpasswordform);
-router.post('/password-reset',passController.resetpassword);
+// //route definition for password
+// router.post('/forgotpassword',passController.requestResetPassword);
+// router.get('/reset/:forgotId', passController.resetPasswordForm);
+// router.post('/password-reset',passController.resetPassword);
 
 
 //routes for expense page
@@ -42,7 +42,6 @@ router.delete("/:id", verify, deleteExpense);
 
 //route for serving the expensePage
 router.get("/", welcomeController.getExpensepage);
-
 
 
 module.exports = router;

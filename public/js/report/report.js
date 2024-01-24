@@ -1,16 +1,16 @@
 const linkdata = document.getElementById("filedownloaded");
-// const token3 = localStorage.getItem("token");
+const token = localStorage.getItem("token");
 // console.log(token3);
 
-// const header3 = {
-//     "Content-Type" : "application/json",
-//     Authorization: token,
-// };
+const header3 = {
+    "Content-Type" : "application/json",
+    Authorization: token,
+};
 
 
 fetch("http://localhost:3000/api/expenses/filehistory", {
   method: "GET",
-  headers: headers,
+  headers: header3,
 })
   .then((response) => {
     if (!response.ok) {

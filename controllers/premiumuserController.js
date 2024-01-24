@@ -68,7 +68,7 @@ const premiumverification = async (req, res) => {
       ),
       User.findOneAndUpdate(
         { _id: req.user.userId },
-        { ispremiumuser: true },
+        { isPremiumUser: true },
         { new: true, session }
       ),
     ]);

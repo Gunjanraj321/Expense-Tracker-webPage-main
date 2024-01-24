@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Expense = require("../models/expenseModel");
 const User = require("../models/userModel");
-const DownloadedFiles = require("../models/downloadfileModel");
+const DownloadedFiles = require("../models/downloadFileModel");
 const S3Services = require("../service/S3services");
 
 const getAllPaginatedExpenses = async (req, res) => {
@@ -59,7 +59,7 @@ const createExpense = async (req, res) => {
 
     await User.updateOne(
       { _id: req.user.userId },
-      { $inc: { total_cost: amount } }
+      { $inc: { totalCost: quantity*amount } }
     );
     res.status(201).json(newExpense);
   } catch (error) {
@@ -73,7 +73,7 @@ const createExpense = async (req, res) => {
 const deleteExpense = async (req, res) => {
   let t;
   const expenseId = req.params.id;
-  console.log(expenseId);
+  // console.log(expenseId);
   try {
     const expense = await Expense.findById(expenseId);
     if (!expense) {
@@ -87,7 +87,7 @@ const deleteExpense = async (req, res) => {
     const amountToDelete = expense.amount;
     await User.updateOne(
       { _id: req.user.userId },
-      { $inc: { total_cost: -amountToDelete } }
+      { $inc: { totalCost: -amountToDelete } }
     );
 
     await Expense.deleteOne({ _id: expenseId });
@@ -131,7 +131,7 @@ const updateExpense = async (req, res) => {
     }
     const diffAmount = amount - updatedExpense.amount;
 
-    await User.updateOne({ _id: userId }, { $inc: { total_cost: diffAmount } });
+    await User.updateOne({ _id: userId }, { $inc: { totalCost: diffAmount } });
 
     await t.commitTransaction();
     res.json(updatedExpense);

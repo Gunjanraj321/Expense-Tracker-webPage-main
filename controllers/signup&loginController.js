@@ -26,7 +26,7 @@ const processSignUp = async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      ispremiumuser: isPremium,
+      isPremiumUser: isPremium,
     });
   
     const token = jwt.sign({ userId: newUser.id }, process.env.SECRET_KEY);
@@ -56,10 +56,10 @@ const processLogin = async (req, res) => {
     if (!user) {
       return res.status(401).json({ error: "User not found" });
     }
-
+    
     const passwordMatch = await bcrypt.compare(password, user.password);
     const token = jwt.sign({ userId: user.id }, process.env.SECRET_KEY);
-    const isPremium = user.ispremiumuser;
+    const isPremium = user.isPremiumUser;
 
     if (passwordMatch) {
       console.log("password match");
